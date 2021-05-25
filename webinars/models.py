@@ -1,6 +1,6 @@
 from __future__ import unicode_literals
 import os
-from users.models import UserProfile
+from users.models import UserProfile 
 
 from django.db import models
 from users.models import UserProfile
@@ -8,18 +8,23 @@ from django.urls import reverse
 from django.db.models.signals import pre_save
 from django.utils.text import slugify
 from django.dispatch import receiver
+from six import python_2_unicode_compatible
+from django.utils.translation import ugettext as _
 
 # Create your models here.
 class Webinar(models.Model):
     webinar_name = models.CharField(unique=True, max_length=20)
+    webinar_author_name = models.CharField(max_length=20,default=" ")
     webinar_created_date = models.DateTimeField(auto_now_add=True)
-    text = models.TextField(default=None,null=True)
-    link = models.URLField(default=None,null=True,blank=True)
+    text_webinar = models.TextField(default=None,null=True)
+    link_webinar = models.URLField(default=None,null=True,blank=True)
     user = models.ForeignKey(UserProfile,on_delete=models.CASCADE, default=1)
     # students = models.ManyToManyField(UserProfile, related_name='students_to_course')
+    cost_webinar=models.IntegerField(null=True,default=0)
+    image_webinar=models.IntegerField(null=True,default=0)
     students = models.ManyToManyField(UserProfile,through="join", related_name='students_to_webinars')
 
-    for_everybody = models.BooleanField(default=True)
+    for_everybody_webinar = models.BooleanField(default=True)
     def __unicode__(self):
         return self.course_name
 
@@ -90,6 +95,61 @@ class FileUploadW(models.Model):
     file = models.FileField(null=False, blank=False, default='')
     date_created = models.DateTimeField(auto_now_add=True)
     file_fk = models.ForeignKey(Session,  on_delete=models.CASCADE)
+
+class Comment(models.Model):
+    post = models.ForeignKey(Session, on_delete = models.CASCADE)
+    user = models.ForeignKey(UserProfile, on_delete = models.CASCADE)
+    reply = models.ForeignKey('Comment', null=True, related_name="replies",on_delete = models.CASCADE)
+    content = models.TextField(max_length=160)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+
+    def __str__(self):
+        return '{}-{}'.format(self.post.session_name, str(self.user.username))
+
+# class Quiz(models.Model):
+#     quiz_name = models.CharField(max_length=20)
+#     quiz_created_date = models.DateTimeField(auto_now_add=True)
+#     session = models.ForeignKey(Session, on_delete=models.CASCADE, default=1)
+#     marks = models.IntegerField(max_length=10)
+#     marks_to_show = models.BooleanField(blank=False,default=False)
+#     user=models.ForeignKey(UserProfile ,on_delete=models.CASCADE)
+
+
+# @python_2_unicode_compatible
+# class Question(models.Model):
+#     content = models.CharField(max_length=1000,
+#                                blank=False,
+#                                help_text=_("Enter the question text that "
+#                                            "you want displayed"),
+#                                verbose_name=_('Question'))
+#     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, default=1)                           
+
+#     attempted = models.BooleanField(blank=False,default=False)
+#     def __str__(self):
+#         return self.content
+
+
+
+# @python_2_unicode_compatible
+# class Answer(models.Model):
+#     question = models.ForeignKey(Question)
+
+#     content = models.CharField(max_length=1000,
+#                                blank=False,
+#                                help_text=_("Enter the answer text that "
+#                                            "you want displayed"),
+#                                verbose_name=_("Content"))
+
+#     correct = models.BooleanField(blank=False,
+#                                   default=False,
+#                                   help_text=_("Is this a correct answer?"),
+#                                   verbose_name=_("Correct"))
+
+#     def __str__(self):
+#         return self.content
+
+
 
 
 @receiver(models.signals.post_delete, sender=FileUploadW)

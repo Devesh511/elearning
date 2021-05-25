@@ -65,7 +65,7 @@
             <script
                     src="https://checkout.razorpay.com/v1/checkout.js"
                     data-key="rzp_test_6ChBFF3DEQamI8"
-                    data-amount="50000"
+                    data-amount={{queryset.cost}}
                     data-name="{{ course }} Payment"
                     data-description="This is for the payment of course:{{ course }}"
                     data-image=""

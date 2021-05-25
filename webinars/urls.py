@@ -9,6 +9,8 @@ urlpatterns = [
     url(r'^student/(?P<webinar_name>[\w ]+)/charge/test/$', user_views.charged_webinar, name="test_webinar"),
     url(r'^student/(?P<webinar_name>[\w ]+)/(?P<slug>[\w-]+)/$', user_views.student_webinar,
         name='student_webinar'),
+    # url(r'^student/(?P<webinar_name>[\w ]+)/(?P<slug>[\w-]+)/quiz$', webinar_views.session_quiz,
+    #     name='session_quiz'),
     
     url(r'^professor/(?P<webinar_name>[\w ]+)/$', webinar_views.webinar, name='professor_webinar'),
     url(r'^professor/(?P<webinar_name>[\w ]+)/delete/$', webinar_views.delete_webinar, name='delete_webinar'),

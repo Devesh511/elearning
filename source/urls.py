@@ -24,6 +24,7 @@ urlpatterns = [
     
     url(r'^about/$', user_views.about, name='about'),
     url(r'^contact/$', user_views.contact, name='contact'),
+    url(r'^contact_as_instructor/$', user_views.contact_as_instructor, name='contact_as_instructor'),
     url(r'^faq/$', user_views.faq, name='faq'),
     url(r'^admin/', admin.site.urls),
     url(r'^courses/', include('courses.urls')),

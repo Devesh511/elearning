@@ -18,3 +18,11 @@ class UserProfile(AbstractUser):
     #     max_length=20*30)
     # is_affiliate = models.BooleanField(default=False)
     # parent=models.CharField(max_length=20)
+
+class Mails(models.Model):
+    document = models.FileField(upload_to='documents/')
+    sender = models.CharField( max_length=30,default="xyz")
+    sop = models.CharField(max_length=300,default="dummy")
+    title = models.CharField( max_length=300,default="dummy")
+    email = models.EmailField( max_length=30,default="xyz@gmail.com")
+    

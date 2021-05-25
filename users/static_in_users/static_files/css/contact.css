@@ -13,7 +13,7 @@
 .contact_details h5 {
     font-size: 1em;
     font-weight: bold;
-    color: #637f83;
+    color:#5faccf;
     margin-bottom: 1em;
     margin-top: 5px;
 }
@@ -28,7 +28,7 @@ i.address {
 
 .contact_address, .contact_mail {
     font-size: 0.85em;
-    color: #999;
+    color: #5faccf;
     line-height: 1.5em;
 }
 
@@ -74,10 +74,10 @@ i.mail {
 .submit:hover {
     color: #fff;
     text-decoration: none;
-    background: #637f83;
-    -moz-box-shadow: 8px 8px 8px #637f83;
-    -webkit-box-shadow: 8px 8px 8px #637f83;
-    box-shadow: 8px 8px 8px #637f83;
+    background: #5faccf;
+    -moz-box-shadow: 8px 8px 8px #5faccf;
+    -webkit-box-shadow: 8px 8px 8px #5faccf;
+    box-shadow: 8px 8px 8px #5faccf;
 }
 
 #id_message {
@@ -85,7 +85,7 @@ i.mail {
 }
 
 form {
-    color: #637f83;
+    color: #5faccf;
 }
 
 .alert-success {

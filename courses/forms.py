@@ -6,7 +6,7 @@ import re
 class AddCourseForm(forms.ModelForm):
     class Meta:
         model = Course
-        fields = ['course_name', 'for_everybody','text','link']
+        fields = ['course_name', 'for_everybody','text','link','image','author_name','cost']
 
     def clean_course_name(self):
         course_name = self.cleaned_data.get('course_name')
@@ -57,7 +57,7 @@ class AddGDLinkForm(forms.ModelForm):
 class EditCourseForm(forms.ModelForm):
     class Meta:
         model = Course
-        fields = ['course_name', 'for_everybody','text','link']
+        fields = ['course_name', 'for_everybody','text','link','image','cost']
 
 
 class EditChapterForm(forms.ModelForm):

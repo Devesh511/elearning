@@ -1,33 +1,42 @@
-
 {% block cbox_model %}
   {% load staticfiles %}
-
-  <div class="container content">
-    <link href="{% static "css/webinar.css" %}" rel="stylesheet"/>
-    <div class="row">
-      {% if queryset %}
+  {% load mathfilters %}
+    <link href="{% static "css/courses.css" %}" rel="stylesheet"/>
+    <div class="container" data-aos="fade-up"></div>
+  <section id="courses" class="courses">
+    <div class="row" data-aos="zoom-in" data-aos-delay="100">
+        {% if queryset %}
         {% for instance in queryset %}
-          <div class="col-md-4 course-box-model">
-            {%if instance in queryset2%}
-            <a href="{% url 'webinar_homepage' instance.webinar_name %} ">
-            {%else%}
-            <a href="{% url 'charge_webinar' instance.webinar_name %}">
-            {%endif%}
-              <div class="inner-wrap">
-                <div class="inner-top">
-                  {{ instance.webinar_name }}
-                </div>
-                <div class="inner-middle"></div>
-                <div class="inner-bottom">
-                  <span class="author"> Author: {{ instance.user }}</span>
-                  <span class="course-type">Self-Paced</span>
-                </div>
+        <div class=" col-lg-3 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0">
+          <div class="course-item">
+          {% if instance in queryset2 or not instance.cost_webinar%}
+                  <a href="{% url 'webinar_homepage' instance.webinar_name %} ">
+                {% else%}
+                  <a href="{% url 'charge_webinar' instance.webinar_name %}">
+                {% endif %}  
+            <img src="{%static "assets/img/course-1.jpg"%}" class="img-fluid" alt="...">
+            <div class=" course-content">
+              <div class=" d-flex justify-content-between align-items-center mb-3">	
+                <h4 >{{instance.webinar_name}}</h4>
+                <p class="price">{{instance.cost_webinar|div:100}}</p>
               </div>
-            </a>
-          </div>
+
+              <p>{{ instance.text_webinar}}</p>
+              
+              <div class="trainer d-flex justify-content-between align-items-center ">
+                <div class="trainer-profile d-flex align-items-center">
+                  
+                  <span>Author: {{ instance.webinar_author_name }}</span>
+                </div>
+        
+              </div>
+            </div>
+            
+          </div></a>
+        </div> <!-- End Course Item-->
         {% endfor %}
-      {% endif %}
-    </div>
-  </div>
+            {% endif %}
+</div>
+    </div></section>
 
 {% endblock %}

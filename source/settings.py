@@ -25,7 +25,7 @@ SECRET_KEY = '^5b8p7m5j5*w9b=@9g3p4ixy=3!ycpw-ruf0#xj%v)!0cj4h2e'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [   "findeducate.herokuapp.com","localhost"]
+ALLOWED_HOSTS = [   "findeducate.herokuapp.com","localhost","www.getskills.in","getskills.in"]
 
 
 # Application definition
@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'users',
     'courses',
     'webinars',
+    'mathfilters',
     
     
     
@@ -171,16 +172,15 @@ SITE_ID = 5
 # Config for sending mail from our official e-mail address
 # Check source/settings_sensitive_template.txt for more info
 
-settings_sensitive = BASE_DIR + '/source/settings_sensitive.py'
-if os.path.isfile(settings_sensitive):
+
     
 
-    EMAIL_USE_TLS = True
+EMAIL_USE_TLS = True
 
-    EMAIL_HOST = 'smtp.gmail.com'
-    EMAIL_HOST_USER = 'piyushkumar0810@gmail.com'
-    EMAIL_HOST_PASSWORD = 'garg0810'
-    EMAIL_PORT = 587
+EMAIL_HOST = 'smtp.zoho.com'
+EMAIL_HOST_USER = 'contact.getskills@gmail.com'
+EMAIL_HOST_PASSWORD = 'getskills1.0'
+EMAIL_PORT = 465
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 

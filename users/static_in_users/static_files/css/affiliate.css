@@ -1,81 +1,52 @@
-.main{
-    ;
+.ref-link{
+    background-color: #3d9963;
+    padding: 1% 0;
+    font-size: 1.4rem;
 }
-.main h1{
-    margin: 0;
-}
-
-.main h3{
-    color: #637f83;
-    margin: 0;
+.top-h2{
+    margin: 1% 0 3% 0;
 }
 
-.main hr{
-    border-style: solid;
-    height: 10px;
+.top-h5{
+margin: 2% 0;
 }
 
-
-.box{
-    background-color: grey;
-    width: 35%;
-    margin: 0 auto;
-    border: solid;
-    position: absolute;
-    left: 10%
-}
-
-.box1{
-    background-color: white;
-    width: 35%;
-    margin: 0 auto;
-    border: solid;
-    position: absolute;
-    right: 10%;
+.social{
+    max;
 }
 
 
-
-
-.icon{
-    width: 20%;
-    padding: 10px 0 10px 10px;
-}
-
-.content{
-
-    width: 70%;
-    position: absolute;
-    top: 5px;
-    left: 100px;
-}
-
-.share{
-    background-color: white;
-    margin: 0 auto;
-    width: 90%;
-    text-align: center;
-    border: solid;
-    box-shadow: 20px;
-    padding: 10px ;
-
-}
-
-
-
-.main a{
-    color: #637f83;
+.reffereal-share{
+    color: #ffffff;
     font-size: 2rem;
-    margin: 0 1%;
+    padding: 1%;
 }
 
-.main a:hover{
-    color: #204051;
+.reffereal-share:hover{
+    color: #3d9963;
 }
 
-.middle{
-    width: 50%;
-    background-color: #637f83;
-    border: solid;
-} 
- 
+
+.affiliate-icon{
+    font-size: 4rem;
+    color: #5fcf80;
+}
+
+.icon-box1{
+
+}
+
+
+.count-box{
+    border: 1px solid #eef0ef;
+    padding: 5% 5% 3% 5%;
+}
+
+.count-box:hover{
+    border: 1px solid #5fcf80
+}
+
+
+.count-box-outer{
+    padding: 0 5%;
+}

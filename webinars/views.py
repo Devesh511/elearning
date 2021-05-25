@@ -1,9 +1,21 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect,JsonResponse
 from django.contrib.auth.decorators import user_passes_test, login_required
 from .forms import *
 from pinax.referrals.models import Referral
 
+from .models import Comment
+from django.template.loader import render_to_string
+
+# @login_required
+# def session_quiz(request,webinar_name,slug=none):
+#     user=request.user
+#     webinar = Webinar.objects.get(webinar_name=webinar_name)
+#     session_list = Session.objects.filter(webinar=webinar)
+#     session = Session.objects.get(webinar__webinar_name=webinar_name, slug=slug)
+#     quiz = Quiz.objects.filter(session=session)
+
+    
 
 @login_required
 def webinars(request):
@@ -14,7 +26,7 @@ def webinars(request):
     if request.user.is_site_admin:
         queryset = Webinar.objects.all()
     else:
-        queryset = Webinar.objects.filter(for_everybody=True )
+        queryset = Webinar.objects.filter(for_everybody_webinar=True )
         queryset2 = Webinar.objects.filter(students=user)
         
 
@@ -100,10 +112,28 @@ def session(request, webinar_name=None, slug=None):
     add_gdlink_form=AddGDLinkForm(request.POST or None)
     file_upload_form = FileUploadForm(request.POST or None, request.FILES or None)
 
+    comments = Comment.objects.filter(post=place, reply=None).order_by('-id')
+
     queryset_txt_block = TextBlockW.objects.filter(text_block_fk__id=place.id)
     queryset_yt_link = YTLinkW.objects.filter(yt_link_fk__id=place.id)
     queryset_files = FileUploadW.objects.filter(file_fk__id=place.id)
     queryset_gdlink = gdlinkW.objects.filter(gd_link_fk__id=place.id)
+
+    if request.method == 'POST':
+        comment_form = CommentForm(request.POST or None)
+        if comment_form.is_valid():
+            content = request.POST.get('content')
+            reply_id = request.POST.get('comment_id')
+            comment_qs = None
+            if reply_id:
+                comment_qs = Comment.objects.get(id=reply_id)
+            comment = Comment.objects.create(post=place, user=request.user, content=content, reply=comment_qs)
+            comment.save()
+            # comment_form.clean()
+            # return HttpResponseRedirect(place.get_absolute_url())
+    else:
+        comment_form= CommentForm()
+
 
     
     context = {
@@ -120,7 +150,15 @@ def session(request, webinar_name=None, slug=None):
         "path": "Profile",
         "redirect_path": "profile",
         "file_upload_form": file_upload_form,
+        "comments": comments,
+        "comment_form": comment_form,
     }
+    
+
+    if request.is_ajax():
+        html = render_to_string('comment.html', context, request=request)
+        return JsonResponse({'form': html})
+
 
     if add_link_form.is_valid() and 'add_link' in request.POST:
         instance = add_link_form.save(commit=False)
@@ -166,7 +204,7 @@ def session(request, webinar_name=None, slug=None):
         return redirect(reverse('session', kwargs={'webinar_name': webinar_name,
                                                    'slug': slug}))
 
-    return render(request, "webinars/Session.html", context)
+    return render(request, "webinars/session.html", context)
 
 
 @user_passes_test(lambda user: user.is_professor)
@@ -231,9 +269,9 @@ def update_webinar(request, webinar_name=None):
         webinar_name = update_webinar_form.cleaned_data.get("webinar_name")
         instance = update_webinar_form.save(commit=False)
     
-        instance.text = update_webinar_form.cleaned_data.get("text")
-        key = update_webinar_form.cleaned_data.get("link")
-
+        instance.text = update_webinar_form.cleaned_data.get("text_webinar")
+        key = update_webinar_form.cleaned_data.get("link_webinar")
+        print(key)
         if 'embed' not in key and 'youtube' in key:
             key = key.split('=')[1]
             instance.link = 'https://www.youtube.com/embed/' + key

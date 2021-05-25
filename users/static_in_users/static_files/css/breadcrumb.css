@@ -1,8 +1,7 @@
 /*--breadcrumb--*/
 .bread-h {
-    background: #637f83;
+    background: #5faccf;
     margin-bottom: 25px;
-    top:50px;
 }
 
 .spacing-path {
@@ -10,13 +9,9 @@
 }
 
 .title-section {
-    background: #637f83;
-    
-
-    
-    
-    border-bottom: 1px solid #597275;
-
+    background: #5faccf;
+    position: relative;
+    border-bottom: 1px solid #5faccf;
 }
 
 .title-section h1 {
@@ -31,8 +26,8 @@
     background: none;
     position: relative;
     margin: 0;
-    padding: 1px 0 10px 0;
-    border-top: 1px solid #597275;
+    padding: 9px 0 10px 0;
+    border-top: 1px solid #5faccf;
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
     border-radius: 0;
@@ -41,7 +36,7 @@
 .title-section ul li {
     line-height: 18px;
     font-size: 13px;
-    color: #5f6775;
+    color: #5faccf;
 }
 
 .title-section ul li a {
@@ -49,5 +44,5 @@
 }
 
 .breadcrumb > .active {
-    color: #9eb3b6;
+    color: #5faccf;
 }
